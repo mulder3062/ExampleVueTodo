@@ -9,13 +9,10 @@
       </div>
       <ul>
         <li v-for="item in progressItems" v-bind:key="item.id">
-          <input type="checkbox" v-on:change="checkItem(item)">
-          <input class="todo-title"
-                 type="text"
-                 placeholder="내용을 입력하세요"
-                 v-model="item.title"
+          <todo-item v-bind:item="item"
+                     v-on:delete="deleteItem"
+                     v-on:check="checkItem"
           />
-          <button v-on:click="deleteItem(item.id)">삭제</button>
         </li>
       </ul>
     </div>
@@ -24,9 +21,10 @@
       <h2>완료</h2>
       <ul>
         <li v-for="item in doneItems" v-bind:key="item.id">
-          <input type="checkbox" v-on:change="checkItem(item)" checked>
-          <span>{{ item.title ? item.title : '(내용 없음)' }}</span>
-          <button v-on:click="deleteItem(item.id)">삭제</button>
+          <todo-item v-bind:item="item"
+                     v-on:delete="deleteItem"
+                     v-on:check="checkItem"
+          />
         </li>
       </ul>
     </div>
@@ -39,6 +37,12 @@ import util from './service/util';
 
 export default {
   name: 'App',
+
+  components: {
+    TodoItem: function() {
+      return import('./components/TodoItem');
+    }
+  },
 
   data: function() {
     return {
