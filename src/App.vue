@@ -8,8 +8,8 @@
         <button v-on:click="addItem">등록</button>
       </div>
       <ul>
-        <li v-for="item in items" v-bind:key="item.id">
-          <input type="checkbox">
+        <li v-for="item in progressItems" v-bind:key="item.id">
+          <input type="checkbox" v-on:change="checkItem(item)">
           <input class="todo-title"
                  type="text"
                  placeholder="내용을 입력하세요"
@@ -23,10 +23,10 @@
     <div>
       <h2>완료</h2>
       <ul>
-        <li>
-          <input type="checkbox" checked>
-          <span>완료된 할 일</span>
-          <button>삭제</button>
+        <li v-for="item in doneItems" v-bind:key="item.id">
+          <input type="checkbox" v-on:change="checkItem(item)" checked>
+          <span>{{ item.title ? item.title : '(내용 없음)' }}</span>
+          <button v-on:click="deleteItem(item.id)">삭제</button>
         </li>
       </ul>
     </div>
@@ -55,6 +55,20 @@ export default {
     }
   },
 
+  computed: {
+    progressItems: function() {
+      return this.items.filter(function(item) {
+        return !item.checked;
+      })
+    },
+
+    doneItems: function() {
+      return this.items.filter(function(item) {
+        return item.checked;
+      })
+    }
+  },
+
   methods: {
     addItem: function() {
       this.items.push({
@@ -70,7 +84,11 @@ export default {
       })
 
       this.items.splice(idx, 1);
-    }
+    },
+
+    checkItem: function(item) {
+      item.checked = !item.checked;
+    },
   }
 }
 </script>
