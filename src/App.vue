@@ -68,12 +68,6 @@ import util from './service/util';
 export default {
   name: 'App',
 
-  components: {
-    TodoItem: function() {
-      return import('./components/TodoItem');
-    }
-  },
-
   data: function() {
     return {
       /*
