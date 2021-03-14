@@ -5,25 +5,17 @@
     <div>
       <h2>진행</h2>
       <div>
-        <button>등록</button>
+        <button v-on:click="addItem">등록</button>
       </div>
       <ul>
-        <li>
+        <li v-for="item in items" v-bind:key="item.id">
           <input type="checkbox">
           <input class="todo-title"
                  type="text"
                  placeholder="내용을 입력하세요"
-                 value="첫번째 할 일"
+                 v-model="item.title"
           />
-          <button>삭제</button>
-        </li>
-        <li>
-          <input type="checkbox">
-          <input class="todo-title"
-                 type="text"
-                 placeholder="내용을 입력하세요"
-          />
-          <button>삭제</button>
+          <button v-on:click="deleteItem(item.id)">삭제</button>
         </li>
       </ul>
     </div>
@@ -43,8 +35,43 @@
 </template>
 
 <script>
+import util from './service/util';
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  data: function() {
+    return {
+      /*
+        item 객체 형태
+
+        {
+          id: 1,
+          checked: false,
+          title: '첫번째 할 일'
+        }
+      */
+      items: []
+    }
+  },
+
+  methods: {
+    addItem: function() {
+      this.items.push({
+        id: util.uuid(),
+        checked: false,
+        title: null
+      })
+    },
+
+    deleteItem: function(id) {
+      const idx = this.items.findIndex(function(e) {
+        return e.id === id;
+      })
+
+      this.items.splice(idx, 1);
+    }
+  }
 }
 </script>
 
