@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<!-- scoped 라는 범위를 지정하면 이 컴포넌트와 이 컴포넌트의 자식에만 스타일이 적용되며 부모 컴포넌트에는 적용되지 않는다 -->
+<!-- scoped 라는 범위를 지정하면 이 컴포넌트에만 스타일이 적용되며 자식 컴포넌트에는 적용되지 않는다 -->
 <style scoped>
 button {
   background-color: orange;
