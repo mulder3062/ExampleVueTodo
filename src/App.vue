@@ -1,6 +1,36 @@
 <template>
   <div id="app">
-    <h1>Todo</h1>
+    <div>
+      <!--
+        <NPM 모듈 자원 접근>
+
+        ~으로 시작하면 npm 모듈에서 자원을 찾는다.
+
+        예) node_modules\@vue\cli-service\generator\template\src\assets\logo.png
+      -->
+      <img src="~@vue\cli-service\generator\template\src\assets\logo.png" width="24px"/>
+      <span>Vue.js Example</span>
+    </div>
+
+
+    <h1>
+      <!--
+        <정적자원 접근>
+      -->
+      <img src="/img/static_todo_list.png" />
+
+      <span>Todo</span>
+
+      <!--
+         <동적 자원 접근>
+
+         @으로 시작되면 모듈 요청으로 해석되며 src/ 경로 밑으로 찾게되며
+         4kb 미만이면 base64 인코딩되어 직접 첨부되어 HTTP 트래픽을 줄여준다. (크기는 vue.config.js 파일에서 변경 가능)
+
+         예) 프로젝트 ROOT\src\assets\img\todo_list.png
+      -->
+      <img src="@/assets/img/todo_list.png" />
+    </h1>
 
     <div>
       <h2>진행</h2>
@@ -98,6 +128,10 @@ export default {
 </script>
 
 <style>
+#app h1 {
+  font-size: 48pt;
+}
+
 ul {
   list-style: none;
 }
